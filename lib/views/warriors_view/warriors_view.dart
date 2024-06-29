@@ -133,37 +133,42 @@ class WarriorsViewState extends State<WarriorsView> {
                       }),
                 ),
                 Expanded(
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
-                    ),
-                    itemCount: myRolData.length,
-                    itemBuilder: (context, index) {
-                      final data = myRolData[index];
-                      return Card(
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                    image: NetworkImage(data["splash_art"]),
-                                    fit: BoxFit.cover,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      int crossAxisCount =
+                          (constraints.maxWidth ~/ 200).clamp(1, 3);
+                      return GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                          crossAxisSpacing: 10.0,
+                          mainAxisSpacing: 10.0,
+                        ),
+                        itemCount: myRolData.length,
+                        itemBuilder: (context, index) {
+                          final data = myRolData[index];
+                          return Card(
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                        image: NetworkImage(data["splash_art"]),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                                ListTile(
+                                  title: Text(data["champion"]),
+                                  subtitle: Text(data["origen"]),
+                                  trailing: Text(data["position"][0]["type"]),
+                                ),
+                              ],
                             ),
-                            ListTile(
-                              title: Text(data["champion"]),
-                              subtitle: Text(data["origen"]),
-                              trailing: Text(data["position"][0]["type"]),
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       );
                     },
                   ),
