@@ -14,13 +14,13 @@ class WarriorsViewState extends State<WarriorsView> {
   List<String> myRoles = [];
   List<dynamic> myRolData = [];
   bool isLoading = true;
-  String selectedRoles = "All";
+  String selectedRoles = "Todo";
 
   @override
   void initState() {
     super.initState();
     fetchRoles();
-    fetchRolData("All");
+    fetchRolData("Todo");
   }
 
   // Para obtener los tipos de guerreros/campeones
@@ -31,7 +31,7 @@ class WarriorsViewState extends State<WarriorsView> {
     try {
       final response = await http.get(url);
       final List<dynamic> data = json.decode(response.body)["warriors"];
-      final List<String> fetchdeRoles = ["All"];
+      final List<String> fetchdeRoles = ["Todo"];
       for (var rol in data) {
         final String roleType = rol["position"][0]["type"];
 
@@ -62,7 +62,7 @@ class WarriorsViewState extends State<WarriorsView> {
       final List<dynamic> rolData = [];
       for (var warrior in data) {
         final String roleType = warrior["position"][0]["type"];
-        if (role == "All" || roleType == role) {
+        if (role == "Todo" || roleType == role) {
           rolData.add(warrior);
         }
       }
