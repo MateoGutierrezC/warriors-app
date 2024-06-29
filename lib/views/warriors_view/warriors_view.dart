@@ -160,6 +160,7 @@ class WarriorsViewState extends State<WarriorsView> {
                             ListTile(
                               title: Text(data["champion"]),
                               subtitle: Text(data["origen"]),
+                              trailing: Text(data["position"][0]["type"]),
                             ),
                           ],
                         ),
